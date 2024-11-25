@@ -2457,3 +2457,260 @@
   label: 'right meow!',
   timestamp: '2024-11-23 17:13:35'
 }
+{
+  meta: {
+    req: {
+      url: '/app/register',
+      headers: {
+        'content-length': '171',
+        connection: 'close',
+        'accept-encoding': 'gzip, deflate, br',
+        host: 'localhost:5000',
+        'postman-token': 'b5b808af-875c-4d7c-b76d-33ea21034017',
+        accept: '*/*',
+        'user-agent': 'PostmanRuntime/7.42.0',
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/app/register',
+      query: {}
+    },
+    res: { statusCode: 400 },
+    responseTime: 28644
+  },
+  level: 'warn',
+  message: 'POST /app/register 400 28644ms',
+  label: 'right meow!',
+  timestamp: '2024-11-26 00:10:37'
+}
+{
+  meta: {
+    req: {
+      url: '/app/register',
+      headers: {
+        'content-length': '171',
+        connection: 'close',
+        'accept-encoding': 'gzip, deflate, br',
+        host: 'localhost:5000',
+        'postman-token': 'e820ef3a-45b2-45fb-9903-dc28888031fb',
+        accept: '*/*',
+        'user-agent': 'PostmanRuntime/7.42.0',
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/app/register',
+      query: {}
+    },
+    res: { statusCode: 400 },
+    responseTime: 14684
+  },
+  level: 'warn',
+  message: 'POST /app/register 400 14684ms',
+  label: 'right meow!',
+  timestamp: '2024-11-26 00:10:57'
+}
+{
+  meta: {
+    req: {
+      url: '/app/register',
+      headers: {
+        'content-length': '171',
+        connection: 'close',
+        'accept-encoding': 'gzip, deflate, br',
+        host: 'localhost:5000',
+        'postman-token': '5bb499c6-3e9a-4a32-8141-d8dae40d4d4d',
+        accept: '*/*',
+        'user-agent': 'PostmanRuntime/7.42.0',
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/app/register',
+      query: {}
+    },
+    res: { statusCode: 400 },
+    responseTime: 31026
+  },
+  level: 'warn',
+  message: 'POST /app/register 400 31026ms',
+  label: 'right meow!',
+  timestamp: '2024-11-26 00:12:55'
+}
+{
+  meta: {
+    req: {
+      url: '/app/test',
+      headers: {
+        cookie: 'comentid=projects.css; ids=projects.css; id=657a9dd18d0370d9d2efb3f6; csrftoken=f7nKJuUIiFhDdEvJYEwLKwrB46a528ds; gmail=kianlucifer0098%40gmail.com; name=majid; verifyNumber=%20hhhads%3Blkf',
+        'accept-language': 'en-US,en;q=0.9,fa;q=0.8',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'sec-fetch-dest': 'document',
+        'sec-fetch-user': '?1',
+        'sec-fetch-mode': 'navigate',
+        'sec-fetch-site': 'none',
+        accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+        'upgrade-insecure-requests': '1',
+        'sec-ch-ua-platform': '"Windows"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua': '"Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"',
+        connection: 'close',
+        host: 'localhost:5000'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/app/test',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 4
+  },
+  level: 'info',
+  message: 'GET /app/test 200 4ms',
+  label: 'right meow!',
+  timestamp: '2024-11-26 00:19:37'
+}
+{
+  meta: {
+    req: {
+      url: '/app/test',
+      headers: {
+        'if-none-match': 'W/"b-GVaIlIAwHe+hVIQ96Oq7sdtl26A"',
+        cookie: 'comentid=projects.css; ids=projects.css; id=657a9dd18d0370d9d2efb3f6; csrftoken=f7nKJuUIiFhDdEvJYEwLKwrB46a528ds; gmail=kianlucifer0098%40gmail.com; name=majid; verifyNumber=%20hhhads%3Blkf',
+        'accept-language': 'en-US,en;q=0.9,fa;q=0.8',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+        'sec-fetch-dest': 'document',
+        'sec-fetch-user': '?1',
+        'sec-fetch-mode': 'navigate',
+        'sec-fetch-site': 'none',
+        accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+        'upgrade-insecure-requests': '1',
+        'sec-ch-ua-platform': '"Windows"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua': '"Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"',
+        'cache-control': 'max-age=0',
+        connection: 'close',
+        host: 'localhost:5000'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/app/test',
+      query: {}
+    },
+    res: { statusCode: 304 },
+    responseTime: 2
+  },
+  level: 'info',
+  message: 'GET /app/test 304 2ms',
+  label: 'right meow!',
+  timestamp: '2024-11-26 00:20:24'
+}
+{
+  meta: {
+    req: {
+      url: '/app/test',
+      headers: {
+        connection: 'close',
+        'accept-encoding': 'gzip, deflate, br',
+        host: 'localhost:5000',
+        'postman-token': '261e8b24-4153-4458-80e0-2fdbcd808711',
+        accept: '*/*',
+        'user-agent': 'PostmanRuntime/7.42.0'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/app/test',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 2
+  },
+  level: 'info',
+  message: 'GET /app/test 200 2ms',
+  label: 'right meow!',
+  timestamp: '2024-11-26 00:25:26'
+}
+{
+  meta: {
+    req: {
+      url: '/app/test',
+      headers: {
+        'content-length': '171',
+        connection: 'close',
+        'accept-encoding': 'gzip, deflate, br',
+        host: 'localhost:5000',
+        'postman-token': 'e020ea53-3f56-42d4-970b-8ddeae70bfb2',
+        accept: '*/*',
+        'user-agent': 'PostmanRuntime/7.42.0',
+        'content-type': 'application/json'
+      },
+      method: 'GET',
+      httpVersion: '1.1',
+      originalUrl: '/app/test',
+      query: {}
+    },
+    res: { statusCode: 400 },
+    responseTime: 178035
+  },
+  level: 'warn',
+  message: 'GET /app/test 400 178035ms',
+  label: 'right meow!',
+  timestamp: '2024-11-26 00:27:30'
+}
+{
+  meta: {
+    req: {
+      url: '/app/register',
+      headers: {
+        'content-length': '171',
+        connection: 'close',
+        'accept-encoding': 'gzip, deflate, br',
+        host: 'localhost:5000',
+        'postman-token': 'e5ea4fe3-9251-49f3-9313-3cd9ea3e7ab7',
+        accept: '*/*',
+        'user-agent': 'PostmanRuntime/7.42.0',
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/app/register',
+      query: {}
+    },
+    res: { statusCode: 400 },
+    responseTime: 83581
+  },
+  level: 'warn',
+  message: 'POST /app/register 400 83581ms',
+  label: 'right meow!',
+  timestamp: '2024-11-26 00:27:30'
+}
+{
+  meta: {
+    req: {
+      url: '/app/register',
+      headers: {
+        'content-length': '171',
+        connection: 'close',
+        'accept-encoding': 'gzip, deflate, br',
+        host: 'localhost:5000',
+        'postman-token': '81f62b43-ff4b-4843-a6ee-973c532003f0',
+        accept: '*/*',
+        'user-agent': 'PostmanRuntime/7.42.0',
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+      httpVersion: '1.1',
+      originalUrl: '/app/register',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 1974
+  },
+  level: 'info',
+  message: 'POST /app/register 200 1974ms',
+  label: 'right meow!',
+  timestamp: '2024-11-26 00:27:44'
+}

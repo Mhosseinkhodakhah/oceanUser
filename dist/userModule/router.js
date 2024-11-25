@@ -12,7 +12,7 @@ const controller = new controllers_1.default();
 const router = (0, express_1.Router)();
 const middleware = new middleware_1.default();
 const adminAuth = new middleware_1.default().adminAuth;
-router.post('/register', validators_1.registerRole, controller.register);
+router.post('/register', controller.register);
 router.get('/test', (req, res, next) => {
     res.status(200).send('test passed');
 });
