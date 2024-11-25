@@ -13,6 +13,9 @@ const router = (0, express_1.Router)();
 const middleware = new middleware_1.default();
 const adminAuth = new middleware_1.default().adminAuth;
 router.post('/register', validators_1.registerRole, controller.register);
+router.get('/test', (req, res, next) => {
+    res.status(200).send('test passed');
+});
 router.post('/login', validators_1.loginRule, controller.login);
 router.get('/refresh-token', validators_1.refreshRule, controller.refreshToken);
 router.get('/check-token', middleware.auth, controller.checkToken);

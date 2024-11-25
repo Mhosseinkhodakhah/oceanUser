@@ -59,6 +59,6 @@ const port = process.env.PORT || 5000;
 app.listen(port, () => {
     console.log('server is running successfully . . .');
 });
-app.use('/user', router_1.default);
+app.use('/app', router_1.default);
 app.use('/interservice', router_2.default);
 app.use('/', router_3.default);

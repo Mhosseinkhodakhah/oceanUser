@@ -18,6 +18,10 @@ const adminAuth = new middleWare().adminAuth
 
 router.post('/register' , registerRole , controller.register)
 
+router.get('/test' , (req:any , res:any , next:any)=>{
+    res.status(200).send('test passed')
+})
+
 router.post('/login' , loginRule , controller.login)
 
 router.get('/refresh-token' , refreshRule ,controller.refreshToken)
