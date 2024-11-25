@@ -41,13 +41,16 @@ export default class userControlers {
 
 
     async login(req: any, res: any, next: any) {
+        console.log('here1')
         const existance = await UserModel.exists({ email: req.body.email })
         if (!existance) {
             // return res.status(200).json('this user is not exist')
             return next(new response(req, res, 'login', 404, 'username or password is wrong', null))
         }
+        console.log('here2')
         const user = await UserModel.findOne({ email: req.body.email })
         if (user) {
+            console.log('here3')
             const password = user?.password
             const compare = await bcrypt.compare(req.body.password, password)
             console.log(compare)
