@@ -5,6 +5,7 @@ import { tokenizationInterface, user } from "./interfaces"
 import userService from "./userServices"
 import bcrypt from 'bcrypt'
 import pointModel from "../DB/models/pints"
+import cacher from "../cache/cach"
 const services = new userService()
 
 
@@ -36,6 +37,7 @@ export default class userControlers {
         console.log(token)
         const refreshToken = await services.refreshTokenize({email : data.email})
         const newData = { ...data, token: token  , refreshToken : refreshToken}
+        await cacher.reset()
         return next(new response(req, res, 'register', 200, null, { user: newData }))
     }
 
@@ -86,6 +88,7 @@ export default class userControlers {
 
         await UserModel.findByIdAndUpdate(req.user.id, req.body)
         const updated = await UserModel.findById(req.user.id)
+        await cacher.reset()
         return next(new response(req, res, 'update user', 200, null, { user: updated }))
     }
 
@@ -180,6 +183,7 @@ export default class userControlers {
         console.log('point', points)
         return next(new response(req, res, 'get user point', 200, null, { points: points }))
     }
+    
 
 }
 
