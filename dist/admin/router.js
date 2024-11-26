@@ -9,7 +9,7 @@ const controller_1 = __importDefault(require("./controller"));
 const adminRouter = (0, express_1.Router)();
 const adminAuth = new middleware_1.default().adminAuth;
 const controller = new controller_1.default();
-adminRouter.get('get-all-users', adminAuth, controller.getAllUsers);
+adminRouter.get('/get-all-users', adminAuth, controller.getAllUsers);
 adminRouter.get('/get-user', adminAuth, controller.getUser);
 adminRouter.get('/get-region-users', adminAuth, controller.getRegionUser);
 adminRouter.get('/get-user-points', adminAuth, controller.getUserPoints);

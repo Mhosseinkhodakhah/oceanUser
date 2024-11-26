@@ -7,7 +7,7 @@ const adminRouter = Router()
 const adminAuth = new middleWare().adminAuth
 const controller = new adminController()
 
-adminRouter.get('get-all-users' , adminAuth,controller.getAllUsers)
+adminRouter.get('/get-all-users' , adminAuth,controller.getAllUsers)
 
 adminRouter.get('/get-user' , adminAuth,controller.getUser)
 
