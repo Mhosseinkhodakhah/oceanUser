@@ -9,7 +9,7 @@ const controller = new adminController()
 
 adminRouter.get('/get-all-users' , adminAuth,controller.getAllUsers)
 
-adminRouter.get('/get-user' , adminAuth,controller.getUser)
+adminRouter.get('/get-user/:userId' , adminAuth,controller.getUser)
 
 adminRouter.get('/get-region-users' ,adminAuth, controller.getRegionUser)
 
