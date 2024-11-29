@@ -13,10 +13,10 @@ export default class userControlers {
 
     async register(req: any, res: any, next: any) {
         const body = req.body
-        // const error = validationResult(req)
-        // if (!error.isEmpty()) {
-        //     return next(new response(req, res, 'register', 400, error['errors'][0].msg, null))
-        // }
+        const error = validationResult(req)
+        if (!error.isEmpty()) {
+            return next(new response(req, res, 'register', 400, error['errors'][0].msg, null))
+        }
         const exist = await UserModel.exists({ email: req.body.email })
         if (exist) {
             return next(new response(req, res, 'register', 401, 'this email already has been used ', null))

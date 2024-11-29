@@ -24,10 +24,10 @@ class userControlers {
     register(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             const body = req.body;
-            // const error = validationResult(req)
-            // if (!error.isEmpty()) {
-            //     return next(new response(req, res, 'register', 400, error['errors'][0].msg, null))
-            // }
+            const error = (0, express_validator_1.validationResult)(req);
+            if (!error.isEmpty()) {
+                return next(new response_1.response(req, res, 'register', 400, error['errors'][0].msg, null));
+            }
             const exist = yield user_1.default.exists({ email: req.body.email });
             if (exist) {
                 return next(new response_1.response(req, res, 'register', 401, 'this email already has been used ', null));

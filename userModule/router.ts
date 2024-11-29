@@ -16,7 +16,7 @@ const middleware = new middleWare()
 const adminAuth = new middleWare().adminAuth
 
 
-router.post('/register'  , controller.register)
+router.post('/register' , registerRole , controller.register)
 
 router.get('/test' , (req:any , res:any , next:any)=>{
     res.status(200).send('test passed')

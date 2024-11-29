@@ -8,7 +8,7 @@ exports.registerRole = [
     (0, express_validator_1.body)('email').notEmpty().withMessage('email address is required'),
     (0, express_validator_1.body)('country').notEmpty().withMessage('country is required'),
     (0, express_validator_1.body)('password').notEmpty().withMessage('password is required'),
-    (0, express_validator_1.body)('language').notEmpty().withMessage('language is required')
+    (0, express_validator_1.body)('language').notEmpty().withMessage('language is required'),
 ];
 exports.forgetRole = [
     (0, express_validator_1.body)('email').notEmpty().isString().withMessage('email address is required and should be string'),

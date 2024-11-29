@@ -7,7 +7,7 @@ export const registerRole = [
     body('email').notEmpty().withMessage('email address is required'),
     body('country').notEmpty().withMessage('country is required'),
     body('password').notEmpty().withMessage('password is required'),
-    body('language').notEmpty().withMessage('language is required')
+    body('language').notEmpty().withMessage('language is required'),
 ];
 
 export const forgetRole = [
