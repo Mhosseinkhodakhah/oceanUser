@@ -5,6 +5,7 @@ export const registerRole = [
     body('fullName').notEmpty().withMessage('fullName is required'),
     body('userName').notEmpty().withMessage('username is required'),
     body('email').notEmpty().withMessage('email address is required'),
+    body('email').isEmail().withMessage('wrong form email'),
     body('country').notEmpty().withMessage('country is required'),
     body('password').notEmpty().withMessage('password is required'),
     body('language').notEmpty().withMessage('language is required'),
