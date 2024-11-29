@@ -185,5 +185,10 @@ export default class userControlers {
     }
     
 
+    async getUserPoint(req: any, res: any, next: any){
+        const point = await UserModel.findById(req.user.id)
+        return next (new response(req , res , 'get user point' , 200 , null , point?.points))
+    }
+
 }
 

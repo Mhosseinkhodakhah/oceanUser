@@ -40,4 +40,6 @@ router.get('/get-user' , middleware.auth ,controller.getUser)
 
 router.get('/get-points-rank' , middleware.auth ,controller.getRankPoints)
 
+router.get('/get-user-point' , middleware.auth , )
+
 export default router

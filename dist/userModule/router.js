@@ -25,4 +25,5 @@ router.put('/check-code/:email/:code', controller.checkCode);
 router.put('/reset-password', validators_1.resetRole, middleware.auth, controller.resetPassword);
 router.get('/get-user', middleware.auth, controller.getUser);
 router.get('/get-points-rank', middleware.auth, controller.getRankPoints);
+router.get('/get-user-point', middleware.auth);
 exports.default = router;
