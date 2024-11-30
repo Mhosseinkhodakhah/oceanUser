@@ -6,9 +6,10 @@ import userService from "./userServices"
 import bcrypt from 'bcrypt'
 import pointModel from "../DB/models/pints"
 import cacher from "../cache/cach"
+import interConnection from "../interservice/connection"
 const services = new userService()
 
-
+const connection = new interConnection()
 export default class userControlers {
 
     async register(req: any, res: any, next: any) {
@@ -37,7 +38,7 @@ export default class userControlers {
         console.log(token)
         const refreshToken = await services.refreshTokenize({email : data.email})
         const newData = { ...data, token: token  , refreshToken : refreshToken}
-        await cacher.reset()
+        await connection.resetCache()
         return next(new response(req, res, 'register', 200, null, { user: newData }))
     }
 
@@ -77,7 +78,7 @@ export default class userControlers {
 
     async checkToken(req: any, res: any, next: any) {
         const user = await UserModel.findById(req.user.id)
-        return next(new response(req, res, 'check token', 200, null, { user: user }))
+        return next(new response(req, res, 'check token', 200 , null, { user: user }))
     }
 
     async updateUser(req: any, res: any, next: any) {
@@ -88,7 +89,7 @@ export default class userControlers {
 
         await UserModel.findByIdAndUpdate(req.user.id, req.body)
         const updated = await UserModel.findById(req.user.id)
-        await cacher.reset()
+        await connection.resetCache()
         return next(new response(req, res, 'update user', 200, null, { user: updated }))
     }
 

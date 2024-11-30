@@ -24,10 +24,6 @@ router.get('/test' , (req:any , res:any , next:any)=>{
 
 router.post('/login' , loginRule , controller.login)
 
-router.get('/refresh-token' , refreshRule ,controller.refreshToken)
-
-router.get('/check-token' ,middleware.auth ,controller.checkToken)
-
 router.patch('/update' , middleware.auth ,controller.updateUser)
 
 router.get('/forget-password' , forgetRole , controller.forgetPassword)
@@ -36,10 +32,5 @@ router.put('/check-code/:email/:code' , controller.checkCode)
 
 router.put('/reset-password' , resetRole, middleware.auth ,controller.resetPassword)
 
-router.get('/get-user' , middleware.auth ,controller.getUser)
-
-router.get('/get-points-rank' , middleware.auth ,controller.getRankPoints)
-
-router.get('/get-user-point' , middleware.auth , )
 
 export default router

@@ -18,8 +18,9 @@ const response_1 = require("../response");
 const userServices_1 = __importDefault(require("./userServices"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const pints_1 = __importDefault(require("../DB/models/pints"));
-const cach_1 = __importDefault(require("../cache/cach"));
+const connection_1 = __importDefault(require("../interservice/connection"));
 const services = new userServices_1.default();
+const connection = new connection_1.default();
 class userControlers {
     register(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -48,7 +49,7 @@ class userControlers {
             console.log(token);
             const refreshToken = yield services.refreshTokenize({ email: data.email });
             const newData = Object.assign(Object.assign({}, data), { token: token, refreshToken: refreshToken });
-            yield cach_1.default.reset();
+            yield connection.resetCache();
             return next(new response_1.response(req, res, 'register', 200, null, { user: newData }));
         });
     }
@@ -98,7 +99,7 @@ class userControlers {
             }
             yield user_1.default.findByIdAndUpdate(req.user.id, req.body);
             const updated = yield user_1.default.findById(req.user.id);
-            yield cach_1.default.reset();
+            yield connection.resetCache();
             return next(new response_1.response(req, res, 'update user', 200, null, { user: updated }));
         });
     }

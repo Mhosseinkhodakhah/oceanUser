@@ -17,13 +17,8 @@ router.get('/test', (req, res, next) => {
     res.status(200).send('test passed');
 });
 router.post('/login', validators_1.loginRule, controller.login);
-router.get('/refresh-token', validators_1.refreshRule, controller.refreshToken);
-router.get('/check-token', middleware.auth, controller.checkToken);
 router.patch('/update', middleware.auth, controller.updateUser);
 router.get('/forget-password', validators_1.forgetRole, controller.forgetPassword);
 router.put('/check-code/:email/:code', controller.checkCode);
 router.put('/reset-password', validators_1.resetRole, middleware.auth, controller.resetPassword);
-router.get('/get-user', middleware.auth, controller.getUser);
-router.get('/get-points-rank', middleware.auth, controller.getRankPoints);
-router.get('/get-user-point', middleware.auth);
 exports.default = router;
