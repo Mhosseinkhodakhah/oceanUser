@@ -6,7 +6,7 @@ exports.registerRole = [
     (0, express_validator_1.body)('fullName').notEmpty().withMessage('fullName is required'),
     (0, express_validator_1.body)('userName').notEmpty().withMessage('username is required'),
     (0, express_validator_1.body)('email').notEmpty().withMessage('email address is required'),
-    (0, express_validator_1.body)('email').isEmail().withMessage('wrong form email'),
+    (0, express_validator_1.body)('email').trim().isEmail().withMessage('wrong form email'),
     (0, express_validator_1.body)('country').notEmpty().withMessage('country is required'),
     (0, express_validator_1.body)('password').notEmpty().withMessage('password is required'),
     (0, express_validator_1.body)('language').notEmpty().withMessage('language is required'),
