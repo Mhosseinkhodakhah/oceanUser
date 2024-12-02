@@ -88,7 +88,10 @@ export default class userControlers {
             return next(new response(req, res, 'update', 404, 'user is not exist on database', null))
         }
 
-        await UserModel.findByIdAndUpdate(req.user.id, req.body)
+        const user = await UserModel.findById(req.user.id)
+
+        const newData = {...user?.toObject() , ...req.body}
+        await user?.updateOne(newData)
         const updated = await UserModel.findById(req.user.id)
         await connection.resetCache()
         return next(new response(req, res, 'update user', 200, null, { user: updated }))

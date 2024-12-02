@@ -18,17 +18,20 @@ const userSchema = new Schema<user>({
 
     country: { type: String, trim: true },
 
-    password: { type: String },
+    password: { type: String , required : true},
 
-    language: { type: String, trim: true },
+    language: { type: String, trim: true, default : 'persian'},
 
     resetPasswordToken: { type: String, default: null },
 
     school: { type: String, trim: true },
 
     points: { type: mongoose.Types.ObjectId, ref: 'points' },
+
     getLicense : {type : Boolean , default : false},
+
     profile : {type : String , default : ''}
+    
 }, { timestamps: true })
 
 

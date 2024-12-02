@@ -98,7 +98,9 @@ class userControlers {
             if (!existance) {
                 return next(new response_1.response(req, res, 'update', 404, 'user is not exist on database', null));
             }
-            yield user_1.default.findByIdAndUpdate(req.user.id, req.body);
+            const user = yield user_1.default.findById(req.user.id);
+            const newData = Object.assign(Object.assign({}, user === null || user === void 0 ? void 0 : user.toObject()), req.body);
+            yield (user === null || user === void 0 ? void 0 : user.updateOne(newData));
             const updated = yield user_1.default.findById(req.user.id);
             yield connection.resetCache();
             return next(new response_1.response(req, res, 'update user', 200, null, { user: updated }));
