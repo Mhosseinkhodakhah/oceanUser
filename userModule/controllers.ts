@@ -92,7 +92,7 @@ export default class userControlers {
 
         const newData = {...user?.toObject() , ...req.body}
         await user?.updateOne(newData)
-        const updated = await UserModel.findById(req.user.id)
+        const updated = await UserModel.findById(req.user.id).populate({ path: 'points', select: ['points', 'pointsLogs'] }).select(['-password', '-resetPasswordToken'])
         await connection.resetCache()
         return next(new response(req, res, 'update user', 200, null, { user: updated }))
     }

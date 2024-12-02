@@ -2714,3 +2714,59 @@
   label: 'right meow!',
   timestamp: '2024-11-26 00:27:44'
 }
+{
+  meta: {
+    req: {
+      url: '/app/update',
+      headers: {
+        'content-type': 'application/json',
+        authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NGFlZmMwNTg1NWQwOTU1YmU4ODBiZCIsImVtYWlsIjoiaG9zc2VpbkBnbWFpbC5jb20iLCJmdWxsTmFtZSI6Imhvc3NlaW4iLCJjb3VudHJ5IjoidDMiLCJsYW5ndWFnZSI6InQzIiwiaWF0IjoxNzMzMTY3MDU5LCJleHAiOjE3MzMxNzA2NTl9.ZTZb6Sk2Q4pL-p6sOz8qw3yIoJFTvM-vYmrLtWAbrYQ',
+        'user-agent': 'PostmanRuntime/7.43.0',
+        accept: '*/*',
+        'postman-token': 'baa323ed-7d8e-4f5d-ad54-78e135a13d68',
+        host: 'localhost:5000',
+        'accept-encoding': 'gzip, deflate, br',
+        connection: 'keep-alive',
+        'content-length': '33'
+      },
+      method: 'PATCH',
+      httpVersion: '1.1',
+      originalUrl: '/app/update',
+      query: {}
+    },
+    res: { statusCode: 401 },
+    responseTime: 29
+  },
+  level: 'warn',
+  message: 'PATCH /app/update 401 29ms',
+  label: 'right meow!',
+  timestamp: '2024-12-02 23:50:56'
+}
+{
+  meta: {
+    req: {
+      url: '/app/update',
+      headers: {
+        'content-type': 'application/json',
+        authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NGUwYTljMTk5ZTM4MDI0OTg4OGY3YiIsImVtYWlsIjoiaG9zc2VpbkBnbWFpbC5jb20iLCJmdWxsTmFtZSI6Imhvc3NlaW4iLCJjb3VudHJ5IjoidDMiLCJsYW5ndWFnZSI6InQzIiwiaWF0IjoxNzMzMTcwODY4LCJleHAiOjE3MzMxNzQ0Njh9.qbMlUaL__pTe_D4gAdfoEIbRFA4Sm9Alh5qdep9Mg1k',
+        'user-agent': 'PostmanRuntime/7.43.0',
+        accept: '*/*',
+        'postman-token': 'd965064f-e1d3-43f4-aadc-6d8c2202090c',
+        host: 'localhost:5000',
+        'accept-encoding': 'gzip, deflate, br',
+        connection: 'keep-alive',
+        'content-length': '33'
+      },
+      method: 'PATCH',
+      httpVersion: '1.1',
+      originalUrl: '/app/update',
+      query: {}
+    },
+    res: { statusCode: 200 },
+    responseTime: 471
+  },
+  level: 'info',
+  message: 'PATCH /app/update 200 471ms',
+  label: 'right meow!',
+  timestamp: '2024-12-02 23:51:53'
+}

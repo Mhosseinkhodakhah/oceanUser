@@ -101,7 +101,7 @@ class userControlers {
             const user = yield user_1.default.findById(req.user.id);
             const newData = Object.assign(Object.assign({}, user === null || user === void 0 ? void 0 : user.toObject()), req.body);
             yield (user === null || user === void 0 ? void 0 : user.updateOne(newData));
-            const updated = yield user_1.default.findById(req.user.id);
+            const updated = yield user_1.default.findById(req.user.id).populate({ path: 'points', select: ['points', 'pointsLogs'] }).select(['-password', '-resetPasswordToken']);
             yield connection.resetCache();
             return next(new response_1.response(req, res, 'update user', 200, null, { user: updated }));
         });
