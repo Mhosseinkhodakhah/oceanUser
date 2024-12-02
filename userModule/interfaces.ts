@@ -10,6 +10,8 @@ export interface tokenizationInterface{
 export interface user {
     _id : string,
     fullName :  string,
+
+    profile : string,
     
     userName :  string,
     

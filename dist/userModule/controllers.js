@@ -35,6 +35,7 @@ class userControlers {
             }
             const hash = yield bcrypt_1.default.hash(req.body.password, 10);
             body.password = hash;
+            body[''];
             const user = yield user_1.default.create(body);
             const point = yield pints_1.default.create({ user: user._id });
             yield user_1.default.findByIdAndUpdate(user._id, { points: point._id });

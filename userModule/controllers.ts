@@ -24,6 +24,7 @@ export default class userControlers {
         }
         const hash = await bcrypt.hash(req.body.password, 10)
         body.password = hash
+        body['']
         const user = await UserModel.create(body)
         const point = await pointModel.create({ user: user._id })
         await UserModel.findByIdAndUpdate(user._id , {points : point._id })

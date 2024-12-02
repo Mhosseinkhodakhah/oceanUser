@@ -27,7 +27,8 @@ const userSchema = new Schema<user>({
     school: { type: String, trim: true },
 
     points: { type: mongoose.Types.ObjectId, ref: 'points' },
-    getLicense : {type : Boolean , default : false}
+    getLicense : {type : Boolean , default : false},
+    profile : {type : String , default : ''}
 }, { timestamps: true })
 
 
