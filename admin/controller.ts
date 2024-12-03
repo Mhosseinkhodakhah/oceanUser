@@ -85,7 +85,7 @@ export default class adminController {
             await user.save()
             const updated = await UserModel.findById(req.params.userId)
             await connection.resetCache()
-            return next(new response(req, res, 'block user', 200, null, updated))
+            return next(new response(req, res, 'block user', 200 , null , updated))
         } else {
             await user.updateOne({ isBlocked: true })
             await user.save()
@@ -93,7 +93,6 @@ export default class adminController {
             await connection.resetCache()
             return next(new response(req, res, 'block user', 200, null, updated))
         }
-
     }
 
 

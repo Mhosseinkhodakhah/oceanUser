@@ -39,14 +39,14 @@ const userSchema = new mongoose_1.Schema({
     userName: { type: String, trim: true },
     email: { type: String, trim: true },
     country: { type: String, trim: true },
-    password: { type: String, required: true },
-    language: { type: String, trim: true, default: 'persian' },
+    password: { type: String },
+    language: { type: String, trim: true },
     resetPasswordToken: { type: String, default: null },
     school: { type: String, trim: true },
     points: { type: mongoose_1.default.Types.ObjectId, ref: 'points' },
     getLicense: { type: Boolean, default: false },
+    level: { type: Number, default: 1 },
     profile: { type: String, default: '' },
-    isBlocked: { type: Boolean, default: false }
 }, { timestamps: true });
 const UserModel = (0, mongoose_1.model)('user', userSchema);
 exports.default = UserModel;

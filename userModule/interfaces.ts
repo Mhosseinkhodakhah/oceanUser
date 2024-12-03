@@ -10,8 +10,6 @@ export interface tokenizationInterface{
 export interface user {
     _id : string,
     fullName :  string,
-
-    profile : string,
     
     userName :  string,
     
@@ -21,12 +19,15 @@ export interface user {
 
     school : string,
 
+    profile:string,
+
     password :  string,
     language:string,
     resetPasswordToken: string,
     points : any,
-    getLicense:boolean,
-    isBlocked : boolean
+    getLicense : boolean,
+    isBlocked:boolean,
+    level : number
 }
 
 

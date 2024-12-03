@@ -18,9 +18,9 @@ const userSchema = new Schema<user>({
 
     country: { type: String, trim: true },
 
-    password: { type: String , required : true},
+    password: { type: String },
 
-    language: { type: String, trim: true, default : 'persian'},
+    language: { type: String, trim: true },
 
     resetPasswordToken: { type: String, default: null },
 
@@ -30,10 +30,12 @@ const userSchema = new Schema<user>({
 
     getLicense : {type : Boolean , default : false},
 
+    level : {type : Number , default : 1},
+
     profile : {type : String , default : ''},
-    isBlocked : {type : Boolean , default : false}
     
-}, { timestamps: true })
+    
+},{timestamps:true})
 
 
 const UserModel = model<user>('user', userSchema)
