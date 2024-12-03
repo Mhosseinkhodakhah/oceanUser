@@ -84,5 +84,18 @@ class adminController {
             return next(new response_1.response(req, res, 'get users based on points', 200, null, finalData));
         });
     }
+    blockUser(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const userId = req.params.userId;
+            const user = yield user_1.default.findById(userId);
+            if (!user) {
+                return next(new response_1.response(req, res, 'block user', 204, 'this user is not exist on databse', null));
+            }
+            yield user.updateOne({ isBlocked: true });
+            yield user.save();
+            const updated = yield user_1.default.findById(req.params.userId);
+            return next(new response_1.response(req, res, 'block user', 200, null, updated));
+        });
+    }
 }
 exports.default = adminController;
