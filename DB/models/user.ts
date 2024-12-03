@@ -30,7 +30,8 @@ const userSchema = new Schema<user>({
 
     getLicense : {type : Boolean , default : false},
 
-    profile : {type : String , default : ''}
+    profile : {type : String , default : ''},
+    isBlocked : {type : Boolean , default : false}
     
 }, { timestamps: true })
 

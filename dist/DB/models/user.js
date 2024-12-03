@@ -45,7 +45,8 @@ const userSchema = new mongoose_1.Schema({
     school: { type: String, trim: true },
     points: { type: mongoose_1.default.Types.ObjectId, ref: 'points' },
     getLicense: { type: Boolean, default: false },
-    profile: { type: String, default: '' }
+    profile: { type: String, default: '' },
+    isBlocked: { type: Boolean, default: false }
 }, { timestamps: true });
 const UserModel = (0, mongoose_1.model)('user', userSchema);
 exports.default = UserModel;
