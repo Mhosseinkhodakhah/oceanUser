@@ -1,9 +1,11 @@
 import cacher from "../cache/cach";
 import pointModel from "../DB/models/pints";
 import UserModel from "../DB/models/user";
+import interConnection from "../interservice/connection";
 import { response } from "../response";
 
 
+const connection = new interConnection()
 
 
 
@@ -82,11 +84,13 @@ export default class adminController {
             await user.updateOne({ isBlocked: false })
             await user.save()
             const updated = await UserModel.findById(req.params.userId)
+            await connection.resetCache()
             return next(new response(req, res, 'block user', 200, null, updated))
         } else {
             await user.updateOne({ isBlocked: true })
             await user.save()
             const updated = await UserModel.findById(req.params.userId)
+            await connection.resetCache()
             return next(new response(req, res, 'block user', 200, null, updated))
         }
 

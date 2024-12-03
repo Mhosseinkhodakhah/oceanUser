@@ -15,7 +15,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const cach_1 = __importDefault(require("../cache/cach"));
 const pints_1 = __importDefault(require("../DB/models/pints"));
 const user_1 = __importDefault(require("../DB/models/user"));
+const connection_1 = __importDefault(require("../interservice/connection"));
 const response_1 = require("../response");
+const connection = new connection_1.default();
 class adminController {
     getAllUsers(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -95,12 +97,14 @@ class adminController {
                 yield user.updateOne({ isBlocked: false });
                 yield user.save();
                 const updated = yield user_1.default.findById(req.params.userId);
+                yield connection.resetCache();
                 return next(new response_1.response(req, res, 'block user', 200, null, updated));
             }
             else {
                 yield user.updateOne({ isBlocked: true });
                 yield user.save();
                 const updated = yield user_1.default.findById(req.params.userId);
+                yield connection.resetCache();
                 return next(new response_1.response(req, res, 'block user', 200, null, updated));
             }
         });
