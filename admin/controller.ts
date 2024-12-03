@@ -71,16 +71,25 @@ export default class adminController {
         return next(new response(req, res, 'get users based on points', 200, null, finalData))
     }
 
-    async blockUser(req: any, res: any, next: any){
+    async blockUser(req: any, res: any, next: any) {
         const userId = req.params.userId;
         const user = await UserModel.findById(userId)
-        if (!user){
-            return next(new response(req , res , 'block user' , 204 , 'this user is not exist on databse' , null))
+        if (!user) {
+            return next(new response(req, res, 'block user', 204, 'this user is not exist on databse', null))
         }
-        await user.updateOne({isBlocked : true})
-        await user.save()
-        const updated = await UserModel.findById(req.params.userId)
-        return next(new response(req , res , 'block user' , 200 , null , updated))
+
+        if (user.isBlocked) {
+            await user.updateOne({ isBlocked: false })
+            await user.save()
+            const updated = await UserModel.findById(req.params.userId)
+            return next(new response(req, res, 'block user', 200, null, updated))
+        } else {
+            await user.updateOne({ isBlocked: true })
+            await user.save()
+            const updated = await UserModel.findById(req.params.userId)
+            return next(new response(req, res, 'block user', 200, null, updated))
+        }
+
     }
 
 
