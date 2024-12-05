@@ -70,6 +70,7 @@ export default class userControlers {
                 fullName: user?.fullName,
                 country: user?.country,
                 language: user?.language,
+                school : user?.school
             }
             const token = await services.tokenize(data)
             const refreshToken = await services.refreshTokenize({email : data.email})

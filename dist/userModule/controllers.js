@@ -80,6 +80,7 @@ class userControlers {
                     fullName: user === null || user === void 0 ? void 0 : user.fullName,
                     country: user === null || user === void 0 ? void 0 : user.country,
                     language: user === null || user === void 0 ? void 0 : user.language,
+                    school: user === null || user === void 0 ? void 0 : user.school
                 };
                 const token = yield services.tokenize(data);
                 const refreshToken = yield services.refreshTokenize({ email: data.email });
