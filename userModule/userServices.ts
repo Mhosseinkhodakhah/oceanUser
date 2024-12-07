@@ -7,17 +7,16 @@ import { v4 as uuidv4 } from 'uuid';
 export default class userService {
 
     async tokenize(data: Partial<tokenizationInterface>): Promise<string> {
-        const token = jwt.sign(data, `${process.env.ACCESSKEY}`, { expiresIn: '1m' })
+        const token = jwt.sign(data, `${process.env.ACCESSKEY}`, { expiresIn: '1H' })
         return token
     }
 
     async refreshTokenize(data: Partial<tokenizationInterface>): Promise<string> {
-        const token = jwt.sign(data, `${process.env.ACCESSREFRESHKEY}`, { expiresIn: '5m' })
+        const token = jwt.sign(data, `${process.env.ACCESSREFRESHKEY}`, { expiresIn: '24h' })
         return token
     }
 
     async hashPass(pass: string): Promise<string> {
-        
         return 'hash'
     }
 
