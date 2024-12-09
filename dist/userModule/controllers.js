@@ -31,7 +31,7 @@ class userControlers {
             }
             const exist = yield user_1.default.exists({ email: req.body.email });
             if (exist) {
-                return next(new response_1.response(req, res, 'register', 401, 'this email already has been used ', null));
+                return next(new response_1.response(req, res, 'register', 401, 'this email already has been used', null));
             }
             const hash = yield bcrypt_1.default.hash(req.body.password, 10);
             body.password = hash;
@@ -60,7 +60,7 @@ class userControlers {
             const existance = yield user_1.default.exists({ email: req.body.email });
             if (!existance) {
                 // return res.status(200).json('this user is not exist')
-                return next(new response_1.response(req, res, 'login', 404, 'username or password is wrong', null));
+                return next(new response_1.response(req, res, 'login', 204, 'this email is not exist on databse', null));
             }
             console.log('here2');
             const user = yield user_1.default.findOne({ email: req.body.email });
