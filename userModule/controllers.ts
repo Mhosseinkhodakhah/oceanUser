@@ -169,6 +169,7 @@ export default class userControlers {
         return next(new response(req, res, 'check otp code!', 200, null, { user: newData }))
     }
 
+
     async resetPassword(req: any, res: any, next: any) {
         const bodyError = validationResult(req)
         if (!bodyError.isEmpty()) {

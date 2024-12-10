@@ -73,15 +73,15 @@ export default class userService {
 
 
     async codeGenerator() {
-        const code = uuidv4()
-        // const number = Math.random()
-        // let code: number;
-        // if (number < 0.1) {
-        //     code = Math.floor(number * 100000)
-        // } else {
-        //     code = Math.floor(number * 10000)
-        // }
-        return code
+        // const code = uuidv4()
+        const number = Math.random()
+        let code: number;
+        if (number < 0.1) {
+            code = Math.floor(number * 100000)
+        } else {
+            code = Math.floor(number * 10000)
+        }
+        return code.toString()
     }
 
 }

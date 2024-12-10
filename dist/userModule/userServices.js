@@ -14,7 +14,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const nodemailer_1 = __importDefault(require("nodemailer"));
-const uuid_1 = require("uuid");
 class userService {
     tokenize(data) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -84,15 +83,16 @@ class userService {
     }
     codeGenerator() {
         return __awaiter(this, void 0, void 0, function* () {
-            const code = (0, uuid_1.v4)();
-            // const number = Math.random()
-            // let code: number;
-            // if (number < 0.1) {
-            //     code = Math.floor(number * 100000)
-            // } else {
-            //     code = Math.floor(number * 10000)
-            // }
-            return code;
+            // const code = uuidv4()
+            const number = Math.random();
+            let code;
+            if (number < 0.1) {
+                code = Math.floor(number * 100000);
+            }
+            else {
+                code = Math.floor(number * 10000);
+            }
+            return code.toString();
         });
     }
 }
