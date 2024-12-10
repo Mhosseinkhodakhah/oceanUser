@@ -152,10 +152,10 @@ export default class userControlers {
         const email = req.params.email;
         const user = await UserModel.findOne({ email: email }).select('-password')
         if (!user) {
-            return next(new response(req, res, 'check otp code!', 404, 'email not found!', null))
+            return next(new response(req, res, 'check otp code!', 403, 'email not found!', null))
         }
         if (user.resetPasswordToken !== code) {
-            return next(new response(req, res, 'check otp code!', 401, 'wrong code!', null))
+            return next(new response(req, res, 'check otp code!', 403, 'wrong code!', null))
         }
         const data: tokenizationInterface = {
             id: (user._id).toString(),
