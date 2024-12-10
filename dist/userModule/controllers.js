@@ -142,8 +142,12 @@ class userControlers {
             if (!bodyError.isEmpty()) {
                 return next(new response_1.response(req, res, 'forget password', 400, bodyError['errors'][0].msg, null));
             }
-            const code = yield services.codeGenerator();
             const { email } = req.body;
+            const user = yield user_1.default.findOne({ email: email });
+            if (!user) {
+                return next(new response_1.response(req, res, 'forget password', 403, 'no account found for this email', null));
+            }
+            const code = yield services.codeGenerator();
             const sendEmail = yield services.sendEmail(email, code);
             console.log('1111');
             yield user_1.default.findOneAndUpdate({ email: email }, { resetPasswordToken: code });

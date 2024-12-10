@@ -133,8 +133,12 @@ export default class userControlers {
         if (!bodyError.isEmpty()) {
             return next(new response(req, res, 'forget password', 400, bodyError['errors'][0].msg, null))
         }
-        const code : string = await services.codeGenerator()
         const { email } = req.body
+        const user = await UserModel.findOne({ email: email })
+        if (!user){
+            return next(new response(req, res, 'forget password', 403, 'no account found for this email', null))
+        }
+        const code : string = await services.codeGenerator()
         const sendEmail = await services.sendEmail(email, code)
         console.log('1111')
         await UserModel.findOneAndUpdate({ email: email } , { resetPasswordToken: code })
