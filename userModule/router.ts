@@ -26,7 +26,7 @@ router.post('/login' , loginRule , controller.login)
 
 router.patch('/update' , middleware.auth ,controller.updateUser)
 
-router.get('/forget-password' , forgetRole , controller.forgetPassword)
+router.put('/forget-password' , forgetRole , controller.forgetPassword)
 
 router.put('/check-code/:email/:code' , controller.checkCode)
 

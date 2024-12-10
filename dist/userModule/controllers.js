@@ -60,7 +60,7 @@ class userControlers {
             const existance = yield user_1.default.exists({ email: req.body.email });
             if (!existance) {
                 // return res.status(200).json('this user is not exist')
-                return next(new response_1.response(req, res, 'login', 204, 'this email is not exist on databse', null));
+                return next(new response_1.response(req, res, 'login', 401, 'this email is not exist on databse', null));
             }
             console.log('here2');
             const user = yield user_1.default.findOne({ email: req.body.email });
@@ -70,7 +70,7 @@ class userControlers {
                 const compare = yield bcrypt_1.default.compare(req.body.password, password);
                 console.log(compare);
                 if (!compare) {
-                    return next(new response_1.response(req, res, 'login', 403, 'the password is incorrect', null));
+                    return next(new response_1.response(req, res, 'login', 401, 'the password is incorrect', null));
                 }
                 const data = {
                     id: (user === null || user === void 0 ? void 0 : user._id),

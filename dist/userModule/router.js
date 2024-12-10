@@ -18,7 +18,7 @@ router.get('/test', (req, res, next) => {
 });
 router.post('/login', validators_1.loginRule, controller.login);
 router.patch('/update', middleware.auth, controller.updateUser);
-router.get('/forget-password', validators_1.forgetRole, controller.forgetPassword);
+router.put('/forget-password', validators_1.forgetRole, controller.forgetPassword);
 router.put('/check-code/:email/:code', controller.checkCode);
 router.put('/reset-password', validators_1.resetRole, middleware.auth, controller.resetPassword);
 exports.default = router;
