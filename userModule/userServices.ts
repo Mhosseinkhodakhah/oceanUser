@@ -81,7 +81,6 @@ export default class userService {
 
 
     async sendEmail(email: string, code: string , userName : string) {
-
         const transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
             port: 465,

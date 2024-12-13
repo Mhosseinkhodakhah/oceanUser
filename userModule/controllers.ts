@@ -1,7 +1,7 @@
 import { body, validationResult } from "express-validator"
 import UserModel from "../DB/models/user"
 import { response } from "../response"
-import { tokenizationInterface, user } from "./interfaces"
+import { log, tokenizationInterface, user } from "./interfaces"
 import userService from "./userServices"
 import bcrypt from 'bcrypt'
 import pointModel from "../DB/models/pints"
@@ -24,7 +24,7 @@ export default class userControlers {
         }
         const hash = await bcrypt.hash(req.body.password, 10)
         body.password = hash
-        body['']
+        // body['']
         const user = await UserModel.create(body)
         const point = await pointModel.create({ user: user._id })
         await UserModel.findByIdAndUpdate(user._id , {points : point._id })
@@ -40,6 +40,16 @@ export default class userControlers {
         const refreshToken = await services.refreshTokenize({email : data.email})
         const newData = { ...data, token: token  , refreshToken : refreshToken}
         await connection.resetCache()
+        let userLog:log = {
+            user : {
+                userName : user.userName,
+                fullName : user.fullName,
+                profile : user.profile,
+            },
+            title : `registeration`,
+            description : `user ${req.body.email} registered successfully!`
+        }
+        await connection.putNewLog(userLog)
         return next(new response(req, res, 'register', 200, null, { user: newData }))
     }
 
@@ -59,6 +69,16 @@ export default class userControlers {
             const compare = await bcrypt.compare(req.body.password, password)
             console.log(compare)
             if (!compare) {
+                let userLog:log = {
+                    user : {
+                        userName : user.userName,
+                        fullName : user.fullName,
+                        profile : user.profile,
+                    },
+                    title : `login`,
+                    description : `user ${user.email} tryed to logging in but his password was incorrect !`
+                }
+                await connection.putNewLog(userLog)
                 return next(new response(req, res, 'login', 401, 'the password is incorrect', null))
             }
 
@@ -75,6 +95,16 @@ export default class userControlers {
             const token = await services.tokenize(data)
             const refreshToken = await services.refreshTokenize({email : data.email})
             const newData = { ...data, token: token , refreshToken : refreshToken }
+            let userLog:log = {
+                user : {
+                    userName : user.userName,
+                    fullName : user.fullName,
+                    profile : user.profile,
+                },
+                title : `login`,
+                description : `user ${user.email} loged in successfully!`
+            }
+            await connection.putNewLog(userLog)
             return next(new response(req, res, 'login', 200, null, { user: newData }))
         }
     }
@@ -85,18 +115,26 @@ export default class userControlers {
         return next(new response(req, res, 'check token', 200 , null, { user: user }))
     }
 
-    async updateUser(req: any, res: any, next: any) {
-        const existance = await UserModel.exists({ _id: req.user.id })
-        if (!existance) {
+    async updateUser(req: any, res: any, next: any) {        
+        const user = await UserModel.findById(req.user.id)
+        if (!user) {
             return next(new response(req, res, 'update', 404, 'user is not exist on database', null))
         }
-
-        const user = await UserModel.findById(req.user.id)
-
+        
         const newData = {...user?.toObject() , ...req.body}
         await user?.updateOne(newData)
         const updated = await UserModel.findById(req.user.id).populate({ path: 'points', select: ['points', 'pointsLogs'] }).select(['-password', '-resetPasswordToken'])
         await connection.resetCache()
+        let userLog:log = {
+            user : {
+                userName : user.userName,
+                fullName : user.fullName,
+                profile : user.profile,
+            },
+            title : `update profile`,
+            description : `user ${user.email} update the profile successfully!`
+        }
+        await connection.putNewLog(userLog)
         return next(new response(req, res, 'update user', 200, null, { user: updated }))
     }
 
@@ -176,9 +214,22 @@ export default class userControlers {
             return next(new response(req, res, 'reset password', 400, bodyError['errors'][0].msg, null))
         }
         const user = await UserModel.findById(req.user.id)
+        if (!user){
+            return next(new response(req, res, 'reset password', 404, 'this user is not exist on database', null))
+        }
         const hash = await bcrypt.hash(req.body.password, 10)
         console.log('hashhhhh >>>>>', hash)
         await UserModel.findByIdAndUpdate(user?._id, { password: hash })
+        let userLog:log = {
+            user : {
+                userName : user.userName,
+                fullName : user.fullName,
+                profile : user.profile,
+            },
+            title : `resetPassword`,
+            description : `user ${user.email} resetPassword successfully!`
+        }
+        await connection.putNewLog(userLog)
         return next(new response(req, res, 'reset password', 200, null, 'the password successfully updated!'))
     }
 

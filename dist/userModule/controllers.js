@@ -35,7 +35,7 @@ class userControlers {
             }
             const hash = yield bcrypt_1.default.hash(req.body.password, 10);
             body.password = hash;
-            body[''];
+            // body['']
             const user = yield user_1.default.create(body);
             const point = yield pints_1.default.create({ user: user._id });
             yield user_1.default.findByIdAndUpdate(user._id, { points: point._id });
@@ -51,6 +51,16 @@ class userControlers {
             const refreshToken = yield services.refreshTokenize({ email: data.email });
             const newData = Object.assign(Object.assign({}, data), { token: token, refreshToken: refreshToken });
             yield connection.resetCache();
+            let userLog = {
+                user: {
+                    userName: user.userName,
+                    fullName: user.fullName,
+                    profile: user.profile,
+                },
+                title: `registeration`,
+                description: `user ${req.body.email} registered successfully!`
+            };
+            yield connection.putNewLog(userLog);
             return next(new response_1.response(req, res, 'register', 200, null, { user: newData }));
         });
     }
@@ -70,6 +80,16 @@ class userControlers {
                 const compare = yield bcrypt_1.default.compare(req.body.password, password);
                 console.log(compare);
                 if (!compare) {
+                    let userLog = {
+                        user: {
+                            userName: user.userName,
+                            fullName: user.fullName,
+                            profile: user.profile,
+                        },
+                        title: `login`,
+                        description: `user ${user.email} tryed to logging in but his password was incorrect !`
+                    };
+                    yield connection.putNewLog(userLog);
                     return next(new response_1.response(req, res, 'login', 401, 'the password is incorrect', null));
                 }
                 const data = {
@@ -85,6 +105,16 @@ class userControlers {
                 const token = yield services.tokenize(data);
                 const refreshToken = yield services.refreshTokenize({ email: data.email });
                 const newData = Object.assign(Object.assign({}, data), { token: token, refreshToken: refreshToken });
+                let userLog = {
+                    user: {
+                        userName: user.userName,
+                        fullName: user.fullName,
+                        profile: user.profile,
+                    },
+                    title: `login`,
+                    description: `user ${user.email} loged in successfully!`
+                };
+                yield connection.putNewLog(userLog);
                 return next(new response_1.response(req, res, 'login', 200, null, { user: newData }));
             }
         });
@@ -97,15 +127,24 @@ class userControlers {
     }
     updateUser(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            const existance = yield user_1.default.exists({ _id: req.user.id });
-            if (!existance) {
+            const user = yield user_1.default.findById(req.user.id);
+            if (!user) {
                 return next(new response_1.response(req, res, 'update', 404, 'user is not exist on database', null));
             }
-            const user = yield user_1.default.findById(req.user.id);
             const newData = Object.assign(Object.assign({}, user === null || user === void 0 ? void 0 : user.toObject()), req.body);
             yield (user === null || user === void 0 ? void 0 : user.updateOne(newData));
             const updated = yield user_1.default.findById(req.user.id).populate({ path: 'points', select: ['points', 'pointsLogs'] }).select(['-password', '-resetPasswordToken']);
             yield connection.resetCache();
+            let userLog = {
+                user: {
+                    userName: user.userName,
+                    fullName: user.fullName,
+                    profile: user.profile,
+                },
+                title: `update profile`,
+                description: `user ${user.email} update the profile successfully!`
+            };
+            yield connection.putNewLog(userLog);
             return next(new response_1.response(req, res, 'update user', 200, null, { user: updated }));
         });
     }
@@ -185,9 +224,22 @@ class userControlers {
                 return next(new response_1.response(req, res, 'reset password', 400, bodyError['errors'][0].msg, null));
             }
             const user = yield user_1.default.findById(req.user.id);
+            if (!user) {
+                return next(new response_1.response(req, res, 'reset password', 404, 'this user is not exist on database', null));
+            }
             const hash = yield bcrypt_1.default.hash(req.body.password, 10);
             console.log('hashhhhh >>>>>', hash);
             yield user_1.default.findByIdAndUpdate(user === null || user === void 0 ? void 0 : user._id, { password: hash });
+            let userLog = {
+                user: {
+                    userName: user.userName,
+                    fullName: user.fullName,
+                    profile: user.profile,
+                },
+                title: `resetPassword`,
+                description: `user ${user.email} resetPassword successfully!`
+            };
+            yield connection.putNewLog(userLog);
             return next(new response_1.response(req, res, 'reset password', 200, null, 'the password successfully updated!'));
         });
     }

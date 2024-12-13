@@ -36,3 +36,17 @@ export interface pointDB{
     pointsLogs : {}[],
     user : any
 }
+
+
+export interface log{
+    user : {
+        userName : string,
+        fullName : string,
+        profile : string,
+    },
+    
+    title : string,
+
+    description : string
+
+}
