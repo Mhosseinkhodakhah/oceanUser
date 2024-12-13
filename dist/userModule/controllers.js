@@ -144,11 +144,11 @@ class userControlers {
             }
             const { email } = req.body;
             const user = yield user_1.default.findOne({ email: email });
-            if (!user) {
-                return next(new response_1.response(req, res, 'forget password', 403, 'no account found for this email', null));
-            }
+            // if (!user){
+            //     return next(new response(req, res, 'forget password', 403, 'no account found for this email', null))
+            // }
             const code = yield services.codeGenerator();
-            const sendEmail = yield services.sendEmail(email, code);
+            const sendEmail = yield services.sendEmail(email, code, 'hossein');
             console.log('1111');
             yield user_1.default.findOneAndUpdate({ email: email }, { resetPasswordToken: code });
             console.log('2222');

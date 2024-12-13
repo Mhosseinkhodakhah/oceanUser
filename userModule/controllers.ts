@@ -135,11 +135,11 @@ export default class userControlers {
         }
         const { email } = req.body
         const user = await UserModel.findOne({ email: email })
-        if (!user){
-            return next(new response(req, res, 'forget password', 403, 'no account found for this email', null))
-        }
+        // if (!user){
+        //     return next(new response(req, res, 'forget password', 403, 'no account found for this email', null))
+        // }
         const code : string = await services.codeGenerator()
-        const sendEmail = await services.sendEmail(email, code)
+        const sendEmail = await services.sendEmail(email , code , 'hossein')
         console.log('1111')
         await UserModel.findOneAndUpdate({ email: email } , { resetPasswordToken: code })
         console.log('2222')
