@@ -23,7 +23,7 @@ class userService {
     }
     refreshTokenize(data) {
         return __awaiter(this, void 0, void 0, function* () {
-            const token = jsonwebtoken_1.default.sign(data, `${process.env.ACCESSREFRESHKEY}`, { expiresIn: '24h' });
+            const token = jsonwebtoken_1.default.sign(data, `${process.env.ACCESSREFRESHKEY}`, { expiresIn: '168h' });
             return token;
         });
     }
