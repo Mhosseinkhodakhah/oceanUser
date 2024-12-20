@@ -12,7 +12,7 @@ export default class userService {
     }
 
     async refreshTokenize(data: Partial<tokenizationInterface>): Promise<string> {
-        const token = jwt.sign(data, `${process.env.ACCESSREFRESHKEY}`, { expiresIn: '168h' })
+        const token = jwt.sign(data, `${process.env.ACCESSREFRESHKEY}`, { expiresIn: '168H' })
         return token
     }
 

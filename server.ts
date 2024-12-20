@@ -36,11 +36,11 @@ app.use(mongoSanitize());
 
 connection()
 
-// // securing connection 
-// app.use(helmet()); // Set security headers
-// // app.use(xss()); // Prevent XSS attacks
-// app.use(hpp());
-// app.use(cors());
+// securing connection 
+app.use(helmet()); // Set security headers
+// app.use(xss()); // Prevent XSS attacks
+app.use(hpp());
+app.use(cors());
 
 
 
