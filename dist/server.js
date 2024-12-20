@@ -8,9 +8,6 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const winston_1 = __importDefault(require("winston")); // this packages for logging the requests
 const express_winston_1 = __importDefault(require("express-winston")); // logger
 const express_mongo_sanitize_1 = __importDefault(require("express-mongo-sanitize")); // for prevent of injection query in database
-const helmet_1 = __importDefault(require("helmet")); // security
-const hpp_1 = __importDefault(require("hpp")); // security
-const cors_1 = __importDefault(require("cors")); // security
 const winston_2 = require("winston");
 const router_1 = __importDefault(require("./userModule/router"));
 const connection_1 = __importDefault(require("./DB/connection"));
@@ -23,11 +20,11 @@ const app = (0, express_1.default)();
 // Sanitize data
 app.use((0, express_mongo_sanitize_1.default)());
 (0, connection_1.default)();
-// securing connection 
-app.use((0, helmet_1.default)()); // Set security headers
-// app.use(xss()); // Prevent XSS attacks
-app.use((0, hpp_1.default)());
-app.use((0, cors_1.default)());
+// // securing connection 
+// app.use(helmet()); // Set security headers
+// // app.use(xss()); // Prevent XSS attacks
+// app.use(hpp());
+// app.use(cors());
 //set logger
 app.use(express_winston_1.default.logger({
     transports: [new winston_1.default.transports.Console(), new (winston_1.default.transports.File)({ filename: 'myLogs.log' })],

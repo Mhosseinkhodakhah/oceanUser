@@ -91,18 +91,19 @@ class adminController {
             const userId = req.params.userId;
             const user = yield user_1.default.findById(userId);
             if (!user) {
-                return next(new response_1.response(req, res, 'block user', 204, 'this user is not exist on databse', null));
+                return next(new response_1.response(req, res, 'block user', 404, 'this user is not exist on databse', null));
             }
+            console.log('user >>>>>>>>> ', user.isBlocked);
             if (user.isBlocked) {
+                console.log(user);
                 yield user.updateOne({ isBlocked: false });
-                yield user.save();
-                const updated = yield user_1.default.findById(req.params.userId);
+                const updated = yield user_1.default.findById(userId);
                 yield connection.resetCache();
                 return next(new response_1.response(req, res, 'block user', 200, null, updated));
             }
             else {
+                console.log('user not block');
                 yield user.updateOne({ isBlocked: true });
-                yield user.save();
                 const updated = yield user_1.default.findById(req.params.userId);
                 yield connection.resetCache();
                 return next(new response_1.response(req, res, 'block user', 200, null, updated));

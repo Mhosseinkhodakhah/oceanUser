@@ -77,18 +77,18 @@ export default class adminController {
         const userId = req.params.userId;
         const user = await UserModel.findById(userId)
         if (!user) {
-            return next(new response(req, res, 'block user', 204, 'this user is not exist on databse', null))
+            return next(new response(req, res, 'block user', 404 , 'this user is not exist on databse', null))
         }
-
+        console.log( 'user >>>>>>>>> ' , user.isBlocked)
         if (user.isBlocked) {
+            console.log(user)
             await user.updateOne({ isBlocked: false })
-            await user.save()
-            const updated = await UserModel.findById(req.params.userId)
+            const updated = await UserModel.findById(userId)
             await connection.resetCache()
             return next(new response(req, res, 'block user', 200 , null , updated))
         } else {
+            console.log('user not block')
             await user.updateOne({ isBlocked: true })
-            await user.save()
             const updated = await UserModel.findById(req.params.userId)
             await connection.resetCache()
             return next(new response(req, res, 'block user', 200, null, updated))
