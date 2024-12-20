@@ -93,7 +93,7 @@ class adminController {
             if (!user) {
                 return next(new response_1.response(req, res, 'block user', 404, 'this user is not exist on databse', null));
             }
-            console.log('user >>>>>>>>> ', user.isBlocked);
+            console.log('user >>>>>>>>> ', user);
             if (user.isBlocked) {
                 console.log(user);
                 yield user.updateOne({ isBlocked: false });

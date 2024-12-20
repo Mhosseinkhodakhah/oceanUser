@@ -79,7 +79,7 @@ export default class adminController {
         if (!user) {
             return next(new response(req, res, 'block user', 404 , 'this user is not exist on databse', null))
         }
-        console.log( 'user >>>>>>>>> ' , user.isBlocked)
+        console.log( 'user >>>>>>>>> ' , user)
         if (user.isBlocked) {
             console.log(user)
             await user.updateOne({ isBlocked: false })
