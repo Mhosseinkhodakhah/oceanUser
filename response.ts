@@ -2,7 +2,6 @@ import { responseInterface } from "./interfaces/response.interface"
 
 
 
-
 export class response{
     constructor(req : any , res : any , scope : string , statusCode : number , error : string | {} | null , data : string | {} | null) {
         const payload  = {

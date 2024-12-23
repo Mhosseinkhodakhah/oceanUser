@@ -7,6 +7,7 @@ import bcrypt from 'bcrypt'
 import pointModel from "../DB/models/pints"
 import cacher from "../cache/cach"
 import interConnection from "../interservice/connection"
+import messages from "../DB/models/responseMessages"
 const services = new userService()
 
 const connection = new interConnection()
@@ -117,8 +118,10 @@ export default class userControlers {
 
     async updateUser(req: any, res: any, next: any) {        
         const user = await UserModel.findById(req.user.id)
+        let lang : string = req.query.lang;
         if (!user) {
-            return next(new response(req, res, 'update', 404, 'user is not exist on database', null))
+            let error = (lang && lang!='') ? messages[lang].userNotFound : messages['english'].userNotFound
+            return next(new response(req, res, 'update', 404, error , null))
         }
         
         const newData = {...user?.toObject() , ...req.body}
@@ -138,31 +141,6 @@ export default class userControlers {
         return next(new response(req, res, 'update user', 200, null, { user: updated }))
     }
 
-
-    async refreshToken(req: any, res: any, next: any) {
-        const body = req.body
-        const bodyError = validationResult(req)
-        if (!bodyError.isEmpty()) {
-            return next(new response(req, res, 'refresh token', 400, bodyError['errors'][0].msg, null))
-        }
-        console.log(req.body)
-        const verify : any = await services.checkRefreshToken(req.body.refreshToken)
-        // console.log(verify)
-        if (!verify) {
-            return next(new response(req, res, 'refresh token', 401, 'token expired', null))
-        }
-        const user = await UserModel.findOne({email : verify.email})
-        const data = {
-            id: (user?._id)?.toString(),
-            email: user?.email,
-            fullName: user?.fullName,
-            country: user?.country,
-            language: user?.language
-        }
-        const token = await services.tokenize(data)
-        const newData = { ...data, token: token }
-        return next(new response(req, res, 'refresh token', 200, null, { user: newData }))
-    }
 
 
 
@@ -188,12 +166,15 @@ export default class userControlers {
     async checkCode(req: any, res: any, next: any) {
         const code = req.params.code;
         const email = req.params.email;
+        let lang : string = req.query.lang
         const user = await UserModel.findOne({ email: email }).select('-password')
         if (!user) {
-            return next(new response(req, res, 'check otp code!', 403, 'email not found!', null))
+            let error = (lang && lang!='') ? messages[lang].emailError : messages['english'].emailError
+            return next(new response(req, res, 'check otp code!', 403, error , null))
         }
         if (user.resetPasswordToken !== code) {
-            return next(new response(req, res, 'check otp code!', 403, 'wrong code!', null))
+            let error = (lang && lang!='') ? messages[lang].codeError : messages['english'].codeError
+            return next(new response(req, res, 'check otp code!', 403, error, null))
         }
         const data: tokenizationInterface = {
             id: (user._id).toString(),
@@ -210,11 +191,13 @@ export default class userControlers {
 
     async resetPassword(req: any, res: any, next: any) {
         const bodyError = validationResult(req)
+        let lang : string = req.query.lang
         if (!bodyError.isEmpty()) {
             return next(new response(req, res, 'reset password', 400, bodyError['errors'][0].msg, null))
         }
         const user = await UserModel.findById(req.user.id)
         if (!user){
+            let error = (lang && lang!='') ? messages[lang].userNotFound : messages['english'].userNotFound
             return next(new response(req, res, 'reset password', 404, 'this user is not exist on database', null))
         }
         const hash = await bcrypt.hash(req.body.password, 10)
@@ -233,26 +216,6 @@ export default class userControlers {
         return next(new response(req, res, 'reset password', 200, null, 'the password successfully updated!'))
     }
 
-
-    async getUser(req: any, res: any, next: any) {
-        const user = await UserModel.findById(req.user.id).populate('points').select(['-password' , '-resetPasswordToken'])
-      
-        return next(new response(req, res, 'get user', 200, null, { user: user }))
-    }
-
-
-
-    async getRankPoints(req: any, res: any, next: any) {
-        const points = await pointModel.find().sort({'points' : -1}).populate('user' , 'userName fullName email country')
-        console.log('point', points)
-        return next(new response(req, res, 'get user point', 200, null, { points: points }))
-    }
-    
-
-    async getUserPoint(req: any, res: any, next: any){
-        const point = await UserModel.findById(req.user.id)
-        return next (new response(req , res , 'get user point' , 200 , null , point?.points))
-    }
 
 }
 
