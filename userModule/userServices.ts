@@ -127,7 +127,7 @@ export default class userService {
         return code.toString()
     }
 
-    
+
     async makeLog(user : any , title : string , describtion : string){
         let userLog:log = {
             user : {
@@ -135,8 +135,8 @@ export default class userService {
                 fullName : user?.fullName,
                 profile : user?.profile,
             },
-            title : `resetPassword`,
-            description : `user ${user?.fullName} resetPassword successfully!`
+            title : title,
+            description : describtion
         }
         await this.connection.putNewLog(userLog)
     }
