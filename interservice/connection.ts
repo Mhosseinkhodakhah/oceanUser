@@ -4,20 +4,20 @@ import { log } from "../userModule/interfaces";
 
 
 export default class interConnection {
-    async reqto() {
-        let data = {}
-        const rawResponse = await fetch(`${process.env.content}/interservice/`, {
-            method: 'GET',
-            headers: {
-                Accept: "*/*",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-        })
+    // async reqto() {
+    //     let data = {}
+    //     const rawResponse = await fetch(`${process.env.content}/interservice/`, {
+    //         method: 'GET',
+    //         headers: {
+    //             Accept: "*/*",
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify(data),
+    //     })
 
-        const response = await rawResponse.json()
-        return response;
-    }
+    //     const response = await rawResponse.json()
+    //     return response;
+    // }
 
 
     async resetCache() {

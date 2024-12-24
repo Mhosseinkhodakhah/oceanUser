@@ -28,7 +28,7 @@ export default class userControlers {
         // body['']
         const user = await UserModel.create(body)
         const point = await pointModel.create({ user: user._id })
-        await UserModel.findByIdAndUpdate(user._id , {points : point._id })
+        await UserModel.findByIdAndUpdate(user._id, { points: point._id })
         const data: tokenizationInterface = {
             id: (user._id).toString(),
             email: body.email,
@@ -38,19 +38,10 @@ export default class userControlers {
         }
         const token = await services.tokenize(data)
         console.log(token)
-        const refreshToken = await services.refreshTokenize({email : data.email})
-        const newData = { ...data, token: token  , refreshToken : refreshToken}
+        const refreshToken = await services.refreshTokenize({ email: data.email })
+        const newData = { ...data, token: token, refreshToken: refreshToken }
         await connection.resetCache()
-        let userLog:log = {
-            user : {
-                userName : user.userName,
-                fullName : user.fullName,
-                profile : user.profile,
-            },
-            title : `registeration`,
-            description : `user ${req.body.email} registered successfully!`
-        }
-        await connection.putNewLog(userLog)
+        await services.makeLog(user, `registeration`, `user ${req.body.email} registered successfully!`)
         return next(new response(req, res, 'register', 200, null, { user: newData }))
     }
 
@@ -60,7 +51,7 @@ export default class userControlers {
         const existance = await UserModel.exists({ email: req.body.email })
         if (!existance) {
             // return res.status(200).json('this user is not exist')
-            return next(new response(req, res, 'login', 401 , 'this email is not exist on databse', null))
+            return next(new response(req, res, 'login', 401, 'this email is not exist on databse', null))
         }
         console.log('here2')
         const user = await UserModel.findOne({ email: req.body.email })
@@ -70,42 +61,23 @@ export default class userControlers {
             const compare = await bcrypt.compare(req.body.password, password)
             console.log(compare)
             if (!compare) {
-                let userLog:log = {
-                    user : {
-                        userName : user.userName,
-                        fullName : user.fullName,
-                        profile : user.profile,
-                    },
-                    title : `login`,
-                    description : `user ${user.email} tryed to logging in but his password was incorrect !`
-                }
-                await connection.putNewLog(userLog)
+
                 return next(new response(req, res, 'login', 401, 'the password is incorrect', null))
             }
 
             const data = {
                 id: (user?._id),
                 email: user?.email,
-                userName : user?.userName,
-                profile : user?.profile,
+                userName: user?.userName,
+                profile: user?.profile,
                 fullName: user?.fullName,
                 country: user?.country,
                 language: user?.language,
-                school : user?.school
+                school: user?.school
             }
             const token = await services.tokenize(data)
-            const refreshToken = await services.refreshTokenize({email : data.email})
-            const newData = { ...data, token: token , refreshToken : refreshToken }
-            let userLog:log = {
-                user : {
-                    userName : user.userName,
-                    fullName : user.fullName,
-                    profile : user.profile,
-                },
-                title : `login`,
-                description : `user ${user.email} loged in successfully!`
-            }
-            await connection.putNewLog(userLog)
+            const refreshToken = await services.refreshTokenize({ email: data.email })
+            const newData = { ...data, token: token, refreshToken: refreshToken }
             return next(new response(req, res, 'login', 200, null, { user: newData }))
         }
     }
@@ -113,31 +85,22 @@ export default class userControlers {
 
     async checkToken(req: any, res: any, next: any) {
         const user = await UserModel.findById(req.user.id)
-        return next(new response(req, res, 'check token', 200 , null, { user: user }))
+        return next(new response(req, res, 'check token', 200, null, { user: user }))
     }
 
-    async updateUser(req: any, res: any, next: any) {        
+    async updateUser(req: any, res: any, next: any) {
         const user = await UserModel.findById(req.user.id)
-        let lang : string = req.query.lang;
+        let lang: string = req.query.lang;
         if (!user) {
-            let error = (lang && lang!='') ? messages[lang].userNotFound : messages['english'].userNotFound
-            return next(new response(req, res, 'update', 404, error , null))
+            let error = (lang && lang != '') ? messages[lang].userNotFound : messages['english'].userNotFound
+            return next(new response(req, res, 'update', 404, error, null))
         }
-        
-        const newData = {...user?.toObject() , ...req.body}
+
+        const newData = { ...user?.toObject(), ...req.body }
         await user?.updateOne(newData)
         const updated = await UserModel.findById(req.user.id).populate({ path: 'points', select: ['points', 'pointsLogs'] }).select(['-password', '-resetPasswordToken'])
         await connection.resetCache()
-        let userLog:log = {
-            user : {
-                userName : user.userName,
-                fullName : user.fullName,
-                profile : user.profile,
-            },
-            title : `update profile`,
-            description : `user ${user.email} update the profile successfully!`
-        }
-        await connection.putNewLog(userLog)
+        await services.makeLog(user, `update profile`, `user ${user.email} update the profile successfully!`)
         return next(new response(req, res, 'update user', 200, null, { user: updated }))
     }
 
@@ -154,10 +117,10 @@ export default class userControlers {
         // if (!user){
         //     return next(new response(req, res, 'forget password', 403, 'no account found for this email', null))
         // }
-        const code : string = await services.codeGenerator()
-        const sendEmail = await services.sendEmail(email , code , 'hossein')
+        const code: string = await services.codeGenerator()
+        const sendEmail = await services.sendEmail(email, code, 'hossein')
         console.log('1111')
-        await UserModel.findOneAndUpdate({ email: email } , { resetPasswordToken: code })
+        await UserModel.findOneAndUpdate({ email: email }, { resetPasswordToken: code })
         console.log('2222')
         return next(new response(req, res, 'forget password', 200, null, 'the code send to your email successfully! please check your email.'))
     }
@@ -166,14 +129,14 @@ export default class userControlers {
     async checkCode(req: any, res: any, next: any) {
         const code = req.params.code;
         const email = req.params.email;
-        let lang : string = req.query.lang
+        let lang: string = req.query.lang
         const user = await UserModel.findOne({ email: email }).select('-password')
         if (!user) {
-            let error = (lang && lang!='') ? messages[lang].emailError : messages['english'].emailError
-            return next(new response(req, res, 'check otp code!', 403, error , null))
+            let error = (lang && lang != '') ? messages[lang].emailError : messages['english'].emailError
+            return next(new response(req, res, 'check otp code!', 403, error, null))
         }
         if (user.resetPasswordToken !== code) {
-            let error = (lang && lang!='') ? messages[lang].codeError : messages['english'].codeError
+            let error = (lang && lang != '') ? messages[lang].codeError : messages['english'].codeError
             return next(new response(req, res, 'check otp code!', 403, error, null))
         }
         const data: tokenizationInterface = {
@@ -191,28 +154,19 @@ export default class userControlers {
 
     async resetPassword(req: any, res: any, next: any) {
         const bodyError = validationResult(req)
-        let lang : string = req.query.lang
+        let lang: string = req.query.lang
         if (!bodyError.isEmpty()) {
             return next(new response(req, res, 'reset password', 400, bodyError['errors'][0].msg, null))
         }
         const user = await UserModel.findById(req.user.id)
-        if (!user){
-            let error = (lang && lang!='') ? messages[lang].userNotFound : messages['english'].userNotFound
+        if (!user) {
+            let error = (lang && lang != '') ? messages[lang].userNotFound : messages['english'].userNotFound
             return next(new response(req, res, 'reset password', 404, 'this user is not exist on database', null))
         }
         const hash = await bcrypt.hash(req.body.password, 10)
         console.log('hashhhhh >>>>>', hash)
         await UserModel.findByIdAndUpdate(user?._id, { password: hash })
-        let userLog:log = {
-            user : {
-                userName : user.userName,
-                fullName : user.fullName,
-                profile : user.profile,
-            },
-            title : `resetPassword`,
-            description : `user ${user.email} resetPassword successfully!`
-        }
-        await connection.putNewLog(userLog)
+        await services.makeLog(user, `resetPassword`, `user ${user.email} resetPassword successfully!`)
         return next(new response(req, res, 'reset password', 200, null, 'the password successfully updated!'))
     }
 

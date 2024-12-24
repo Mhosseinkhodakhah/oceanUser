@@ -1,10 +1,17 @@
 import jwt, { JwtPayload } from 'jsonwebtoken'
-import { tokenizationInterface } from './interfaces';
+import { log, tokenizationInterface } from './interfaces';
 import nodemailer from 'nodemailer'
 import mailer from './mailer';
 import bcrypt from 'bcrypt'
 import { v4 as uuidv4 } from 'uuid';
+import interConnection from '../interservice/connection';
+
+
+
 export default class userService {
+
+    connection = new interConnection()
+
 
     async tokenize(data: Partial<tokenizationInterface>): Promise<string> {
         const token = jwt.sign(data, `${process.env.ACCESSKEY}`, { expiresIn: '1H' })
@@ -119,5 +126,20 @@ export default class userService {
         }
         return code.toString()
     }
+
+    
+    async makeLog(user : any , title : string , describtion : string){
+        let userLog:log = {
+            user : {
+                userName : user?.userName,
+                fullName : user?.fullName,
+                profile : user?.profile,
+            },
+            title : `resetPassword`,
+            description : `user ${user?.fullName} resetPassword successfully!`
+        }
+        await this.connection.putNewLog(userLog)
+    }
+
 
 }
